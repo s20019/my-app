@@ -22,15 +22,16 @@ class Joke extends React.Component {
   render () {
     return (
       <>
-        <h1 className='title'>ジョークゲッター</h1>
+        <h1>JOKE GETTER</h1>
         <div className='container'>
           <SetView set={this.state.setup} />
           <FemaleImage />
           <PunchView punch={this.state.punchline} />
           <MaleImage />
         </div>
-        <div className='good'>
-          <GoodButton className='good' />
+        <div className='button'>
+          <GoodButton />
+          <BudButton />
         </div>
         <div className='reload'>
           <ReloadButton className='reload' />
@@ -59,13 +60,38 @@ const ReloadButton = props => {
   )
 }
 
-/* イイねボタン */
+/* グッドボタン */
 const GoodButton = props => {
   const [count, counter] = React.useState(0)
-  const handleClick = event => counter(count + 1)
+  const handleClick = event => {
+    if ((count !== 0) & (count % 10 === 0)) {
+      counter(count + 1)
+      window.alert('Thank you for ' + count + ' likes')
+    } else {
+      counter(count + 1)
+    }
+  }
   return (
     <Button variant='contained' color='primary' onClick={handleClick}>
-      イイね👍：{count}
+      Good👍：{count}
+    </Button>
+  )
+}
+
+/* バッドボタン */
+const BudButton = props => {
+  const [count, counter] = React.useState(0)
+  const handleClick = event => {
+    if ((count !== 0) & (count % 10 === 0)) {
+      counter(count + 1)
+      window.alert('Thank you for ' + count + ' hates')
+    } else {
+      counter(count + 1)
+    }
+  }
+  return (
+    <Button variant='contained' color='secondary' onClick={handleClick}>
+      Bud👎：{count}
     </Button>
   )
 }
