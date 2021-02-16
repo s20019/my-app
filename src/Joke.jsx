@@ -21,42 +21,71 @@ class Joke extends React.Component {
 
   render () {
     return (
-      <div className='container'>
-        <h1>ジョークゲッター</h1>
-        <TextView set={this.state.setup} punch={this.state.punchline} />
-        <HumanImage />
-        <GoodButton />
-      </div>
+      <>
+        <h1 className='title'>ジョークゲッター</h1>
+        <div className='container'>
+          <SetView set={this.state.setup} />
+          <FemaleImage />
+          <PunchView punch={this.state.punchline} />
+          <MaleImage />
+        </div>
+        <div className='good'>
+          <GoodButton className='good' />
+        </div>
+        <div className='reload'>
+          <ReloadButton className='reload' />
+        </div>
+      </>
     )
   }
 }
 
 /* ジョーク部分 */
-const TextView = props => {
+const SetView = props => {
+  return <h2>フリ：{props.set}</h2>
+}
+
+const PunchView = props => {
+  return <h2>オチ：{props.punch}</h2>
+}
+
+/* リロードボタン */
+const ReloadButton = props => {
+  const refreshPage = event => window.location.reload()
   return (
-    <div>
-      <h2>フリ：{props.set}</h2>
-      <h2>オチ：{props.punch}</h2>
-    </div>
+    <Button variant='contained' onClick={refreshPage}>
+      One More Joke!
+    </Button>
   )
 }
 
 /* イイねボタン */
 const GoodButton = props => {
   const [count, counter] = React.useState(0)
-  const handleChange = event => counter(count + 1)
+  const handleClick = event => counter(count + 1)
   return (
-    <Button variant='contained' color='primary' onClick={handleChange}>
+    <Button variant='contained' color='primary' onClick={handleClick}>
       イイね👍：{count}
     </Button>
   )
 }
 
 /* 人物の画像をランダムに返す */
-const HumanImage = props => {
+const MaleImage = props => {
   return (
     <img
-      src='https://joeschmoe.io/api/v1/random'
+      src='https://joeschmoe.io/api/v1/male/random'
+      width='200'
+      height='200'
+      alt='human'
+    />
+  )
+}
+
+const FemaleImage = props => {
+  return (
+    <img
+      src='https://joeschmoe.io/api/v1/female/random'
       width='200'
       height='200'
       alt='human'
